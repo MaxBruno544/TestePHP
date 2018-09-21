@@ -9,7 +9,7 @@
         echo "Banco de Dados não foi conectado com sucesso...";
         exit;
     }
-    $rs = mysql_query("SELECT * FROM produtos;");
+    $rs = mysql_query("SELECT * FROM produtos WHERE 1;");
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -25,10 +25,23 @@
 </head>
 <body>
     <h1>Manter Dados de Produtos</h1>
-    <table>
+    <table class="table">
         <tr>
-
+            <th>ID</th>
+            <th>Descrição</th>
+            <th>Unidade</th>
+            <th>Quantidade</th>
+            <th>Valor R$</th>
         </tr>
+        <?php while ($row=mysql_fetch_array($rs)) {?>
+            <tr>
+                <td><?php $row['id'] ?></td>
+                <td><?php $row['descricao'] ?></td>
+                <td><?php $row['unidade'] ?></td>
+                <td><?php $row['quantidade'] ?></td>
+                <td><?php $row['valor'] ?></td>
+            </tr>
+        <?php } ?>
     </table>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
