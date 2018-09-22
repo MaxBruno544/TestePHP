@@ -12,7 +12,7 @@
     $rs = mysql_query("SELECT * FROM produtos WHERE 1;");
 ?>
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
 
@@ -21,28 +21,49 @@
     
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
     <title>Listar Produtos</title>
 </head>
 <body>
-    <h1>Manter Dados de Produtos</h1>
-    <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>Descrição</th>
-            <th>Unidade</th>
-            <th>Quantidade</th>
-            <th>Valor R$</th>
-        </tr>
-        <?php while ($row=mysql_fetch_array($rs)) {?>
-            <tr>
-                <td><?php $row['id'] ?></td>
-                <td><?php $row['descricao'] ?></td>
-                <td><?php $row['unidade'] ?></td>
-                <td><?php $row['quantidade'] ?></td>
-                <td><?php $row['valor'] ?></td>
-            </tr>
-        <?php } ?>
-    </table>
+    <div class="container">
+        <h1>Lista de Produtos</h1>
+        <br/>
+        <input name="bt_ins" id="bt_insr" type="button" class="btn btn-primary" value="Novo" onclick="javascript:location.href='inserir.html'">
+        <br/>
+        <br/>
+        <div class="table-responsive-md">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Unidade</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Valor R$</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row=mysql_fetch_array($rs)) {?>
+                        <tr>
+                            <td scope="row"><?php echo $row['id'] ?></td>
+                            <td><?php echo $row['descricao'] ?></td>
+                            <td><?php echo $row['unidade'] ?></td>
+                            <td><?php echo $row['quantidade'] ?></td>
+                            <td><?php echo $row['valor'] ?></td>
+                            <td>
+                                <button type="button" class="btn btn-info" onclick="javascript: location.href='frmEdtPro.php?id=' + <?php echo $row['id']?>"><i class="far fa-edit"></i></button>
+                            </td>
+                            <td></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
