@@ -1,16 +1,13 @@
 <?php
-    $conexao = mysql_connect("localhost", "root", "");
-    if(!$conexao){
-        echo "Erro ao conectar ao banco MySql...";
-        exit;
-    }
-    $banco = mysql_select_db("lp2017");
-    if(!$banco){
-        echo "Banco de Dados não foi conectado com sucesso...";
-        exit;
-    }
+    require_once('conexao.php');//inclui o arquivo 'conexao.php'
+
     $id = trim($_REQUEST['id']); //$_REQUEST[] --> busca valor na barra de endereço do navegador
+    
+    $con = open_database(); //abrir banco
+    selectDb(); //seleciona banco
     $rs = mysql_query("SELECT * FROM produtos WHERE id=".$id);
+    close_database($con); //fecha banco
+
     $row = mysql_fetch_array($rs); //recuperar linha de dados do banco SQL
     $desc = $row['descricao'];
     $uni = $row['unidade'];
@@ -34,7 +31,7 @@
 <body>
     <div class="container">
         <h1>Alteração de Dados de Produtos</h1>    
-        <form id="frmEdPro" action="edtPro.php" method="post">
+        <form id="frmEdPro" name="frmEdPro" action="edtPro.php" method="post">
             <div class="form-group">
                 <label for="lblIdt">ID: <?php echo $id?></label>
                 <input type="hidden" name="id" value="<?php echo $id?>">

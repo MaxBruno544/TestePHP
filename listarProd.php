@@ -1,15 +1,13 @@
 <?php
-    $conexao = mysql_connect("localhost", "root", "");
-    if(!$conexao){
-        echo "Erro ao conectar ao banco MySql...";
-        exit;
-    }
-    $banco = mysql_select_db("lp2017");
-    if(!$banco){
-        echo "Banco de Dados não foi conectado com sucesso...";
-        exit;
-    }
+    session_start();
+    if (!isset($_SESSION['user']))
+        header("Location: index.html");
+
+    require_once('conexao.php');
+    $con = open_database();
+    selectDb();
     $rs = mysql_query("SELECT * FROM produtos WHERE 1;");
+    close_database($con);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -29,7 +27,8 @@
     <div class="container">
         <h1>Lista de Produtos</h1>
         <br/>
-        <input name="bt_ins" id="bt_insr" type="button" class="btn btn-primary" value="Novo" onclick="javascript:location.href='inserir.html'">
+        <input name="bt_ins" id="bt_ins" type="button" class="btn btn-primary" value="Novo" onclick="javascript:location.href='inserir.html'">
+        <input name="bt_logout" id="bt_logout" type="button" class="btn btn-danger" value="Logout" onclick="javascript:location.href='logout.php'">
         <br/>
         <br/>
         <div class="table-responsive-md">
@@ -57,7 +56,9 @@
                             <td>
                                 <button type="button" class="btn btn-info" onclick="javascript: location.href='frmEdtPro.php?id=' + <?php echo $row['id']?>"><i class="far fa-edit"></i></button>
                             </td>
-                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-danger" onclick="javascript: location.href='frmRemPro.php?id=' + <?php echo $row['id']?>"><i class="far fa-trash-alt"></i></button>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
